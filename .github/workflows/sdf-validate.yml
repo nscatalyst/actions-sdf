@@ -7,17 +7,20 @@ jobs:
   sdf-deploy:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name == 'main' && 'production' || 'sandbox' }}
-    needs: [unit-test, sdf-validate]
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/sdf-install
+      - uses: actions/setup-node@v3
         with:
-          ns-account-id: ${{ vars.NS_ACCOUNT_ID }}
-          ns-token-id: ${{ secrets.NS_TOKEN_ID }}
-          ns-token-secret: ${{ secrets.NS_TOKEN_SECRET }}
-      - name: Install dependencies with lock file
-        run: npm install
-      - name: Deploy project to ${{ vars.NS_ACCOUNT_ID }}
+          node-version: 'lts/*'
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'oracle'
+      - name: Install dependencies
+        run: npm install --no-package-lock
+      - name: Authenticate with NetSuite
+        run: ./node_modules/.bin/suitecloud account:savetoken --account ${{ vars.NS_ACCOUNT_ID }} --authid ${{ vars.NS_ACCOUNT_ID }} --tokenid ${{ secrets.NS_TOKEN_ID }} --tokensecret ${{ secrets.NS_TOKEN_SECRET }}
+      - name: Deploy project
         run: npm run deploy
   sdf-validate:
     runs-on: ubuntu-latest
