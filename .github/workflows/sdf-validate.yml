@@ -34,8 +34,14 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/sdf-install
         with:
-          ns-account-id: ${{ secrets.NS_ACCOUNT_ID }}
+          ns-account-id: ${{ secrets.NS_ACCOUNT_ID }}nb
           ns-token-id: ${{ secrets.NS_TOKEN_ID }}
           ns-token-secret: ${{ secrets.NS_TOKEN_SECRET }}
+      - name: Authenticate with NetSuite
+        env:
+          NS_ACCOUNT: ${{ secrets.NS_ACCOUNT_ID }}
+          NS_TOKEN_ID: ${{ secrets.NS_TOKEN_ID }}
+          NS_TOKEN_SECRET: ${{ secrets.NS_TOKEN_SECRET }}
+        run: ./node_modules/.bin/suitecloud account:savetoken --account "$NS_ACCOUNT" --tokenid "$NS_TOKEN_ID" --tokensecret "$NS_TOKEN_SECRET"
       - name: Validate project against ${{ secrets.NS_ACCOUNT_ID }}
         run: npm run validate
