@@ -6,6 +6,6 @@
     "validate": "suitecloud project:validate"
   },
   "devDependencies": {
-    "@oracle/suitecloud-cli": "1.7.3"
+    "@oracle/suitecloud-cli": "1.6.2"
   }
 }
