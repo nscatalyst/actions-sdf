@@ -1,20 +1,22 @@
 const SuiteCloudJestUnitTestRunner = require('@oracle/suitecloud-unit-testing/services/SuiteCloudJestUnitTestRunner');
 
 module.exports = {
-	defaultProjectFolder: 'src',
-	commands: {
-    'project:deploy': {
-      beforeExecuting: async args => {
-        args.accountspecificvalues = 'WARNING';
-        return args;
-      }
+    defaultProjectFolder: 'src',
+    commands: {
+        "project:deploy": {
+            beforeExecuting: () => {
+                return true;
+            },
+        },
+        'project:validate': {
+            beforeExecuting: async args => {
+                args.accountspecificvalues = 'WARNING';
+                args.server = true;
+                return args;
+            }
+        }
     },
-    'project:validate': {
-      beforeExecuting: async args => {
-        args.accountspecificvalues = 'WARNING';
-        args.server = true;
-        return args;
-      }
+    accountSettings: {
+        authenticationMode: 'token'
     }
-	}
 };
