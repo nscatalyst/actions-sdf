@@ -17,7 +17,7 @@ jobs:
           java-version: '17'
           distribution: 'oracle'
       - name: Install dependencies
-        run: npm install --no-package-lock
+        run: npm install --no-package-lock --acceptsuitecloudsdklicense
       - name: Authenticate with NetSuite
         run: ./node_modules/.bin/suitecloud account:savetoken --account ${{ vars.NS_ACCOUNT_ID }} --authid ${{ vars.NS_ACCOUNT_ID }} --tokenid ${{ secrets.NS_TOKEN_ID }} --tokensecret ${{ secrets.NS_TOKEN_SECRET }}
       - name: Deploy project
