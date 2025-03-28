@@ -7,7 +7,7 @@
     "validate": "suitecloud project:validate"
   },
   "devDependencies": {
-    "@oracle/suitecloud-cli": "1.6.3",
+    "@oracle/suitecloud-cli": "1.5.0",
     "@oracle/suitecloud-unit-testing": "1.2.1",
     "@types/jest": "29.5.2",
     "jest": "29.5.0"
