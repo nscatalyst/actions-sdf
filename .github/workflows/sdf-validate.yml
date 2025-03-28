@@ -21,11 +21,10 @@ jobs:
           npm install @oracle/suitecloud-cli@2.0.0 --no-package-lock --save-dev --legacy-peer-deps --acceptsuitecloudsdklicense
       - name: Authenticate with NetSuite
         env:
-          NS_URL: ${{ secrets.NS_URL }}
           NS_ACCOUNT: ${{ secrets.NS_ACCOUNT_ID }}
           NS_TOKEN_ID: ${{ secrets.NS_TOKEN_ID }}
           NS_TOKEN_SECRET: ${{ secrets.NS_TOKEN_SECRET }}
-        run: ./node_modules/.bin/suitecloud account:manageauth --authid "production" --url "$NS_URL" --account "$NS_ACCOUNT" --tokenid "$NS_TOKEN_ID" --tokensecret "$NS_TOKEN_SECRET"
+        run: ./node_modules/.bin/suitecloud account:savetoken --account "$NS_ACCOUNT" --tokenid "$NS_TOKEN_ID" --tokensecret "$NS_TOKEN_SECRET"
       - name: Deploy project
         run: npm run deploy
   sdf-validate:
