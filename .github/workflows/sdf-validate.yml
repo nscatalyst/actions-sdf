@@ -25,6 +25,11 @@ jobs:
           NS_TOKEN_ID: ${{ secrets.NS_TOKEN_ID }}
           NS_TOKEN_SECRET: ${{ secrets.NS_TOKEN_SECRET }}
         run: ./node_modules/.bin/suitecloud account:savetoken --account "$NS_ACCOUNT" --tokenid "$NS_TOKEN_ID" --tokensecret "$NS_TOKEN_SECRET"
+      - name: Setup Project Account
+        env:
+          NS_ACCOUNT: ${{ secrets.NS_ACCOUNT_ID }}
+        run: |
+          ./node_modules/.bin/suitecloud account:setup --account "$NS_ACCOUNT" --authid "production"
       - name: Deploy project
         run: npm run deploy
   sdf-validate:
