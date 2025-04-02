@@ -27,8 +27,7 @@ jobs:
           ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production" --certificateid "$NS_CERT_ID" --privatekeypath "./private-key.pem"
       - name: Deploy file
         run: |
-          ./node_modules/.bin/suitecloud file:upload --paths "./src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js"
-
+          ./node_modules/.bin/suitecloud file:upload --paths=./src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js
   sdf-validate:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name == 'main' && 'production' || 'sandbox' }}
@@ -40,7 +39,7 @@ jobs:
           node-version: '18'
       - name: Install dependencies
         run: |
-          npm install @oracle/suitecloud-cli@3.0.0 --no-package-lock --save-dev --legacy-peer-deps --acceptsuitecloudsdklicense
+          npm install @oracle/suitecloud-cli@2.0.0 --no-package-lock --save-dev --legacy-peer-deps --acceptsuitecloudsdklicense
       - name: Setup private key
         run: |
           echo "${{ secrets.NS_PRIVATE_KEY }}" > private-key.pem
