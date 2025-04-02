@@ -47,7 +47,7 @@ jobs:
 
       - name: Deploy single file
         run: |
-          ./node_modules/.bin/suitecloud file:upload --paths "src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js,/SuiteScripts/ctc_test_script_vcs1.js"
+          ./node_modules/.bin/suitecloud file:upload --paths "$WORKSPACE_PATH/src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js","
       - name: Debug paths
         run: |
           WORKSPACE_PATH=$(pwd)
