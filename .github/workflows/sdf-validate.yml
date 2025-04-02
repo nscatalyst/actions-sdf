@@ -39,7 +39,7 @@ jobs:
       - name: Deploy project
         run: |
           WORKSPACE_PATH=$(pwd)
-          suitecloud file:upload --paths "$WORKSPACE_PATH/src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js" "/SuiteScripts/ctc_test_script_vcs1.js"
+          ./node_modules/.bin/suitecloud file:upload --paths "$WORKSPACE_PATH/src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js" "/SuiteScripts/ctc_test_script_vcs1.js"
 
   sdf-validate:
     runs-on: ubuntu-latest
