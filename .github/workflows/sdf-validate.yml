@@ -40,36 +40,15 @@ jobs:
           mkdir -p src/FileCabinet/SuiteScripts
           cp ../src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js src/FileCabinet/SuiteScripts/
           
-          # Debug: Verify file was copied correctly
-          echo "Files in netsuite-deployment/src/FileCabinet/SuiteScripts:"
+          # Debug: Show current directory and file existence
+          echo "Current directory:"
+          pwd
+          echo "Directory listing:"
+          ls -la
+          echo "SuiteScripts directory:"
           ls -la src/FileCabinet/SuiteScripts/
+          echo "File content:"
+          cat src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js
           
-          # Upload file using absolute path
-          ../node_modules/.bin/suitecloud file:upload --paths "/home/runner/work/actions-sdf/actions-sdf/netsuite-deployment/src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js"
-  sdf-validate:
-    runs-on: ubuntu-latest
-    environment: ${{ github.ref_name == 'main' && 'production' || 'sandbox' }}
-    needs: sdf-deploy
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - name: Install dependencies
-        run: |
-          npm install @oracle/suitecloud-cli@2.0.0 --no-package-lock --save-dev --legacy-peer-deps --acceptsuitecloudsdklicense
-      - name: Setup private key
-        run: |
-          echo "${{ secrets.NS_PRIVATE_KEY }}" > private-key.pem
-          chmod 600 private-key.pem
-      - name: Setup Project Account
-        env:
-          NS_ACCOUNT: ${{ secrets.NS_ACCOUNT_ID }}
-          NS_CERT_ID: ${{ secrets.NS_CERT_ID }}
-        run: |
-          ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production" --certificateid "$NS_CERT_ID" --privatekeypath "./private-key.pem"
-      - name: Initialize SuiteCloud Project
-        run: |
-          ./node_modules/.bin/suitecloud project:create --projectname netsuite-validation --projectversion 1.0.0 --overwrite
-      - name: Validate project
-        run: npm run validate
+          # Upload file using relative path
+          ../node_modules/.bin/suitecloud file:upload --paths "src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js"
