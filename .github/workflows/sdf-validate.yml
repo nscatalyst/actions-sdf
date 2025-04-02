@@ -24,7 +24,7 @@ jobs:
           NS_ACCOUNT: ${{ secrets.NS_ACCOUNT_ID }}
           NS_CERT_ID: ${{ secrets.NS_CERT_ID }}
         run: |
-          ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production" --certificateid "$NS_CERT_ID" --privatekey "./private-key.pem"
+          ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production" --certificateid "$NS_CERT_ID" --privatekeypath "./private-key.pem"
       - name: Deploy file
         run: |
           WORKSPACE_PATH=$(pwd)
