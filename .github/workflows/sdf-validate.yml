@@ -27,7 +27,7 @@ jobs:
           ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production" --certificateid "$NS_CERT_ID" --privatekeypath "./private-key.pem"
       - name: Initialize SuiteCloud Project
         run: |
-          ./node_modules/.bin/suitecloud project:create --projectname netsuite-deployment --projectversion 1.0.0 --type ACCOUNT_CUSTOMIZATION --overwrite
+          ./node_modules/.bin/suitecloud project:create --projectname netsuite-deployment --projectversion 1.0.0 --type ACCOUNTCUSTOMIZATION --overwrite
       - name: Deploy file
         run: |
           ./node_modules/.bin/suitecloud file:upload --paths src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js
