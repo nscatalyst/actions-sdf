@@ -25,9 +25,11 @@ jobs:
           NS_CERT_ID: ${{ secrets.NS_CERT_ID }}
         run: |
           ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production" --certificateid "$NS_CERT_ID" --privatekeypath "./private-key.pem"
+      - name: Initialize SuiteCloud Project
+        run: |
+          ./node_modules/.bin/suitecloud project:create --projectname netsuite-deployment --projectversion 1.0.0 --overwrite
       - name: Deploy file
         run: |
-          cd $GITHUB_WORKSPACE
           ./node_modules/.bin/suitecloud file:upload --paths src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js
   sdf-validate:
     runs-on: ubuntu-latest
@@ -40,7 +42,7 @@ jobs:
           node-version: '18'
       - name: Install dependencies
         run: |
-          npm install @oracle/suitecloud-cli@2.0.0 --no-package-lock --save-dev --legacy-peer-deps --acceptsuitecloudsdklicense
+          npm install @oracle/suitecloud-cli@3.0.0 --no-package-lock --save-dev --legacy-peer-deps --acceptsuitecloudsdklicense
       - name: Setup private key
         run: |
           echo "${{ secrets.NS_PRIVATE_KEY }}" > private-key.pem
@@ -51,5 +53,8 @@ jobs:
           NS_CERT_ID: ${{ secrets.NS_CERT_ID }}
         run: |
           ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production" --certificateid "$NS_CERT_ID" --privatekeypath "./private-key.pem"
+      - name: Initialize SuiteCloud Project
+        run: |
+          ./node_modules/.bin/suitecloud project:create --projectname netsuite-validation --projectversion 1.0.0 --overwrite
       - name: Validate project
         run: npm run validate
