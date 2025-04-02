@@ -2,7 +2,7 @@
   "name": "actions-sdf",
   "version": "0.1.0",
   "scripts": {
-    "deploy": "suitecloud file:upload --paths \"/SuiteScripts/test_2.js\"",
+    "deploy": "suitecloud file:upload --paths \"/src/FileCabinet/SuiteScripts/test_2.js\"",
     "validate": "suitecloud file:list --folder \"/SuiteScripts\""
   },
   "devDependencies": {
