@@ -25,7 +25,7 @@ jobs:
           NS_CERT_ID: ${{ secrets.NS_CERT_ID }}
         run: |
           ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production" --certificateid "$NS_CERT_ID" --privatekeypath "./private-key.pem"
-          - name: Initialize SuiteCloud Project
+      - name: Initialize SuiteCloud Project
         run: |
           ./node_modules/.bin/suitecloud project:create --projectname netsuite-deployment --projectversion 1.0.0 --type ACCOUNTCUSTOMIZATION --overwrite
           cd netsuite-deployment
