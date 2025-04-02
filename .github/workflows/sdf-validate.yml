@@ -25,6 +25,9 @@ jobs:
           NS_CERT_ID: ${{ secrets.NS_CERT_ID }}
         run: |
           ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production" --certificateid "$NS_CERT_ID" --privatekeypath "./private-key.pem"
+      - name: Verify directory exists
+        run: |
+          mkdir -p src/FileCabinet/SuiteScripts
       - name: Deploy project
         run: npm run deploy
 

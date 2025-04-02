@@ -2,8 +2,8 @@
   "name": "actions-sdf",
   "version": "0.1.0",
   "scripts": {
-    "deploy": "suitecloud file:upload --paths ./src/FileCabinet/SuiteScripts/*",
-    "validate": "suitecloud file:list --folder /SuiteScripts"
+    "deploy": "suitecloud file:upload --paths \"./src/FileCabinet/SuiteScripts\"",
+    "validate": "suitecloud file:list --folder \"/SuiteScripts\""
   },
   "devDependencies": {
     "@oracle/suitecloud-cli": "2.0.0"
