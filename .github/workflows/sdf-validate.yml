@@ -27,7 +27,7 @@ jobs:
           ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production" --certificateid "$NS_CERT_ID" --privatekeypath "./private-key.pem"
       - name: Deploy file
         run: |
-          ./node_modules/.bin/suitecloud file:upload --paths ./src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js --target /SuiteScripts/ctc_test_script_vcs1.js
+          ./node_modules/.bin/suitecloud file:upload --paths "./src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js"
 
   sdf-validate:
     runs-on: ubuntu-latest
