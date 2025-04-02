@@ -33,22 +33,38 @@ jobs:
           ./node_modules/.bin/suitecloud project:create --projectname netsuite-deployment --projectversion 1.0.0 --type ACCOUNTCUSTOMIZATION --overwrite
           cd netsuite-deployment
           ../node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production_deploy" --certificateid "$NS_CERT_ID" --privatekeypath "../private-key.pem"
-      - name: Deploy file
+      - name: Check if file exists in NetSuite
+        id: check_file
+        run: |
+          cd netsuite-deployment
+          # Check if file exists in NetSuite
+          if ../node_modules/.bin/suitecloud file:list --folder "/SuiteScripts" | grep -q "ctc_test_script_vcs1.js"; then
+            echo "File exists in NetSuite"
+            echo "file_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "File does not exist in NetSuite"
+            echo "file_exists=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Prepare file for upload
         run: |
           # Create project directories and copy file
           cd netsuite-deployment
           mkdir -p src/FileCabinet/SuiteScripts
           cp ../src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js src/FileCabinet/SuiteScripts/
           
-          # Debug: Show current directory and file existence
-          echo "Current directory:"
-          pwd
-          echo "Directory listing:"
-          ls -la
-          echo "SuiteScripts directory:"
-          ls -la src/FileCabinet/SuiteScripts/
+          # Show file details
           echo "File content:"
           cat src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js
-          
-          # Upload file using relative path
+      - name: Create new file in NetSuite
+        if: steps.check_file.outputs.file_exists == 'false'
+        run: |
+          cd netsuite-deployment
+          echo "Creating new file in NetSuite..."
+          ../node_modules/.bin/suitecloud object:create --scriptid customscript_test_vcs1 --type SCHEDULEDSCRIPT --destination src/Objects --scriptfile src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js
+          ../node_modules/.bin/suitecloud project:deploy
+      - name: Update existing file in NetSuite
+        if: steps.check_file.outputs.file_exists == 'true'
+        run: |
+          cd netsuite-deployment
+          echo "Updating existing file in NetSuite..."
           ../node_modules/.bin/suitecloud file:upload --paths "src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js"
