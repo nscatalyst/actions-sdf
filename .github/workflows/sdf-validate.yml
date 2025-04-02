@@ -19,17 +19,15 @@ jobs:
       - name: Install dependencies
         run: |
           npm install @oracle/suitecloud-cli@2.0.0 --no-package-lock --save-dev --legacy-peer-deps --acceptsuitecloudsdklicense
-      - name: Authenticate with NetSuite
-        env:
-          NS_ACCOUNT: ${{ secrets.NS_ACCOUNT_ID }}
-          NS_TOKEN_ID: ${{ secrets.NS_TOKEN_ID }}
-          NS_TOKEN_SECRET: ${{ secrets.NS_TOKEN_SECRET }}
-        run: ./node_modules/.bin/suitecloud account:savetoken --account "$NS_ACCOUNT" --tokenid "$NS_TOKEN_ID" --tokensecret "$NS_TOKEN_SECRET"
+      - name: Setup private key
+        run: |
+          echo "${{ secrets.NS_PRIVATE_KEY }}" > private-key.pem
       - name: Setup Project Account
         env:
           NS_ACCOUNT: ${{ secrets.NS_ACCOUNT_ID }}
+          NS_CERT_ID: ${{ secrets.NS_CERT_ID }}
         run: |
-          ./node_modules/.bin/suitecloud account:setup --account "$NS_ACCOUNT" --authid "production"
+          ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "ctc-dev-production" --certificateid "$NS_CERT_ID" --privatekeypath "./private-key.pem"
       - name: Deploy project
         run: npm run deploy
   sdf-validate:
