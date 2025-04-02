@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "scripts": {
     "deploy": "suitecloud file:upload --paths ./src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js --target /SuiteScripts/ctc_test_script_vcs1.js",
-    "validate": "suitecloud file:list --folder /SuiteScripts",
+    "validate": "suitecloud file:list --folder \"/SuiteScripts\"",
     "deploy:debug": "pwd && ls -la src/FileCabinet/SuiteScripts/*.js"
   },
   "devDependencies": {
-    "@oracle/suitecloud-cli": "3.0.0"
+    "@oracle/suitecloud-cli": "2.0.0"
   }
 }
