@@ -2,9 +2,9 @@
   "name": "actions-sdf",
   "version": "0.1.0",
   "scripts": {
-    "deploy": "suitecloud file:upload --paths \"src/FileCabinet/SuiteScripts/test_2.js\" \"/SuiteScripts/test_2.js\"",
+    "deploy": "suitecloud file:upload --paths \"/home/runner/work/actions-sdf/actions-sdf/src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js\" \"/SuiteScripts/ctc_test_script_vcs1.js\"",
     "validate": "suitecloud file:list --folder \"/SuiteScripts\"",
-    "deploy:debug": "ls -la src/FileCabinet/SuiteScripts/*.js"
+    "deploy:debug": "pwd && ls -la src/FileCabinet/SuiteScripts/*.js"
   },
   "devDependencies": {
     "@oracle/suitecloud-cli": "2.0.0"
