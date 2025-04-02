@@ -35,19 +35,17 @@ jobs:
           ../node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production_deploy" --certificateid "$NS_CERT_ID" --privatekeypath "../private-key.pem"
       - name: Deploy file
         run: |
-          # Debug: Show directory structure
-          echo "Main directory structure:"
-          ls -la
-          echo "Source directory structure:"
-          ls -la src/FileCabinet/SuiteScripts/
-          
-          # Create project directories
+          # Create project directories and copy file
           cd netsuite-deployment
           mkdir -p src/FileCabinet/SuiteScripts
           cp ../src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js src/FileCabinet/SuiteScripts/
           
-          # Upload file using correct path
-          ../node_modules/.bin/suitecloud file:upload --paths "./src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js"
+          # Debug: Verify file was copied correctly
+          echo "Files in netsuite-deployment/src/FileCabinet/SuiteScripts:"
+          ls -la src/FileCabinet/SuiteScripts/
+          
+          # Upload file using absolute path
+          ../node_modules/.bin/suitecloud file:upload --paths "/home/runner/work/actions-sdf/actions-sdf/netsuite-deployment/src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js"
   sdf-validate:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name == 'main' && 'production' || 'sandbox' }}
