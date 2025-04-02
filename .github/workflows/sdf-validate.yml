@@ -30,9 +30,12 @@ jobs:
           mkdir -p src/FileCabinet/SuiteScripts
       - name: Debug file paths
         run: |
-          ls -la src/FileCabinet/SuiteScripts/
+          echo "Current directory:"
           pwd
-          npm run deploy:debug
+          echo "Files in SuiteScripts:"
+          ls -la src/FileCabinet/SuiteScripts/
+          echo "Testing file path:"
+          test -f "src/FileCabinet/SuiteScripts/test_2.js" && echo "File exists" || echo "File not found"
       - name: Deploy project
         run: npm run deploy
 
