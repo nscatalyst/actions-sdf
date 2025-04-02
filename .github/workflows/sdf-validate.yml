@@ -36,6 +36,18 @@ jobs:
           ls -la src/FileCabinet/SuiteScripts/
           echo "Testing file path:"
           test -f "src/FileCabinet/SuiteScripts/test_2.js" && echo "File exists" || echo "File not found"
+      - name: Debug file paths
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Files in SuiteScripts:"
+          ls -la src/FileCabinet/SuiteScripts/
+          echo "File content:"
+          cat src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js
+
+      - name: Deploy single file
+        run: |
+          ./node_modules/.bin/suitecloud file:upload --paths "src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js,/SuiteScripts/ctc_test_script_vcs1.js"
       - name: Debug paths
         run: |
           WORKSPACE_PATH=$(pwd)
