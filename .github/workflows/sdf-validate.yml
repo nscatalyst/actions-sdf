@@ -14,7 +14,7 @@ jobs:
           node-version: '18'
       - name: Install dependencies
         run: |
-          npm install @oracle/suitecloud-cli@2.0.0 --no-package-lock --save-dev --legacy-peer-deps --acceptsuitecloudsdklicense
+          npm install @oracle/suitecloud-cli@3.0.0 --no-package-lock --save-dev --legacy-peer-deps --acceptsuitecloudsdklicense
       - name: Setup private key
         run: |
           echo "${{ secrets.NS_PRIVATE_KEY }}" > private-key.pem
@@ -24,39 +24,11 @@ jobs:
           NS_ACCOUNT: ${{ secrets.NS_ACCOUNT_ID }}
           NS_CERT_ID: ${{ secrets.NS_CERT_ID }}
         run: |
-          ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production" --certificateid "$NS_CERT_ID" --privatekeypath "./private-key.pem"
-      - name: Verify directory exists
-        run: |
-          mkdir -p src/FileCabinet/SuiteScripts
-      - name: Debug file paths
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "Files in SuiteScripts:"
-          ls -la src/FileCabinet/SuiteScripts/
-          echo "Testing file path:"
-          test -f "src/FileCabinet/SuiteScripts/test_2.js" && echo "File exists" || echo "File not found"
-      - name: Debug file paths
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "Files in SuiteScripts:"
-          ls -la src/FileCabinet/SuiteScripts/
-          echo "File content:"
-          cat src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js
-
-      - name: Deploy single file
-        run: |
-          ./node_modules/.bin/suitecloud file:upload --paths "$WORKSPACE_PATH/src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js",
-      - name: Debug paths
+          ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production" --certificateid "$NS_CERT_ID" --privatekey "./private-key.pem"
+      - name: Deploy file
         run: |
           WORKSPACE_PATH=$(pwd)
-          echo "Source path: $WORKSPACE_PATH/src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js"
-          echo "Full command: ./node_modules/.bin/suitecloud file:upload --paths \"$WORKSPACE_PATH/src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js,/SuiteScripts/ctc_test_script_vcs1.js\""
-      - name: Deploy project
-        run: |
-          WORKSPACE_PATH=$(pwd)
-          ./node_modules/.bin/suitecloud file:upload --paths "$WORKSPACE_PATH/src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js,/SuiteScripts/ctc_test_script_vcs1.js"
+          ./node_modules/.bin/suitecloud file:upload --paths ./src/FileCabinet/SuiteScripts/ctc_test_script_vcs1.js --target /SuiteScripts/ctc_test_script_vcs1.js
 
   sdf-validate:
     runs-on: ubuntu-latest
@@ -69,7 +41,7 @@ jobs:
           node-version: '18'
       - name: Install dependencies
         run: |
-          npm install @oracle/suitecloud-cli@2.0.0 --no-package-lock --save-dev --legacy-peer-deps --acceptsuitecloudsdklicense
+          npm install @oracle/suitecloud-cli@3.0.0 --no-package-lock --save-dev --legacy-peer-deps --acceptsuitecloudsdklicense
       - name: Setup private key
         run: |
           echo "${{ secrets.NS_PRIVATE_KEY }}" > private-key.pem
@@ -79,6 +51,6 @@ jobs:
           NS_ACCOUNT: ${{ secrets.NS_ACCOUNT_ID }}
           NS_CERT_ID: ${{ secrets.NS_CERT_ID }}
         run: |
-          ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production" --certificateid "$NS_CERT_ID" --privatekeypath "./private-key.pem"
+          ./node_modules/.bin/suitecloud account:setup:ci --account "$NS_ACCOUNT" --authid "production" --certificateid "$NS_CERT_ID" --privatekey "./private-key.pem"
       - name: Validate project
         run: npm run validate
