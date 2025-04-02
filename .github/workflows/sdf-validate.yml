@@ -28,6 +28,11 @@ jobs:
       - name: Verify directory exists
         run: |
           mkdir -p src/FileCabinet/SuiteScripts
+      - name: Debug file paths
+        run: |
+          ls -la src/FileCabinet/SuiteScripts/
+          pwd
+          npm run deploy:debug
       - name: Deploy project
         run: npm run deploy
 
