@@ -1,13 +1,15 @@
 module.exports = {
-  defaultProjectFolder: 'src',
-  commands: {
-    "project:deploy": {
-      beforeExecuting: () => {
-        return true;
-      },
+    defaultProjectFolder: 'src',
+    commands: {
+        "file:deploy": {
+            beforeExecuting: () => {
+                return {
+                    arguments: {}
+                };
+            },
+        },
     },
-  },
-  accountSettings: {
-    authenticationMethod: 'oauth2'
-  }
+    accountSettings: {
+        authenticationMethod: 'oauth2'
+    }
 };

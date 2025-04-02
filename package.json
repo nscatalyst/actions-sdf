@@ -2,8 +2,8 @@
   "name": "actions-sdf",
   "version": "0.1.0",
   "scripts": {
-    "deploy": "suitecloud project:deploy",
-    "validate": "suitecloud project:validate"
+    "deploy": "suitecloud file:deploy ./src/FileCabinet/SuiteScripts/*",
+    "validate": "suitecloud file:list ./src/FileCabinet/SuiteScripts/*"
   },
   "devDependencies": {
     "@oracle/suitecloud-cli": "2.0.0"
