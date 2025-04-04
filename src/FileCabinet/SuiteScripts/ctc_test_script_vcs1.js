@@ -16,7 +16,7 @@ function onRequest(request, response) {
         form.addSubmitButton('Submit');
 
         // Render the form to the screen
-        context.response.writePage(form);
+        response.writePage(form);
 
     } else { // POST request
         // Get the submitted values
@@ -35,6 +35,6 @@ function onRequest(request, response) {
         form.addButton('custpage_back_button', 'Go Back', 'window.history.back()');
 
         // Render the form with the result message
-        context.response.writePage(form);
+        response.writePage(form);
     }
 }

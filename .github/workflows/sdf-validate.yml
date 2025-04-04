@@ -1,4 +1,4 @@
-name: SDF Validation
+name: SDF Deploy
 run-name: validate
 on:
   push:
