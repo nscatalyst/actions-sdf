@@ -2,9 +2,9 @@
 /* NS-DEPLOY-TARGET: 354290 */
 /**
  */
-function onRequest(context) {
+function onRequest(request, response) {
     // Check if the request is GET or POST
-    if (context.request.method === 'GET') {
+    if (request.getMethod() === 'GET') {
         // Create a form
         var form = nlapiCreateForm('Sample Suitelet Form');
 
