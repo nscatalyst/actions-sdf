@@ -1,8 +1,6 @@
 /* CLICKUP-TASK-ID: TASK1 */
 /* NS-DEPLOY-TARGET: 354290 */
 /**
- * @NApiVersion 1.x
- * @NScriptType Suitelet
  */
 function onRequest(context) {
     // Check if the request is GET or POST
