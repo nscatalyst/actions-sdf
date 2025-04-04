@@ -1,5 +1,5 @@
-/* [CTC-CLICKUP-TASK-ID: CST-33383] */
-/* [CTC-NS-DEPLOY-TARGET: 595110] */
+/* [CTC-CLICKUP-TASK-ID: CST-3332] */
+/* [CTC-NS-DEPLOY-TARGET: tstdrv1716438] */
 /**
  */
 function onRequest(request, response) {
@@ -11,7 +11,6 @@ function onRequest(request, response) {
         // Add fields to the form
         var nameField = form.addField('custpage_name', 'text', 'Name');
         var emailField = form.addField('custpage_email', 'text', 'Email');
-        var testField1 = form.addField('custpage_test1', 'text', 'New Field 1');
 
         // Add a submit button
         form.addSubmitButton('Submit');
