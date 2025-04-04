@@ -10,7 +10,10 @@ function onRequest(request, response) {
         // Add fields to the form
         var nameField = form.addField('custpage_name', 'text', 'Name');
         var emailField = form.addField('custpage_email', 'text', 'Email');
+        var test1 = form.addField('custpage_email1', 'text', 'New field 1');
+        var test2 = form.addField('custpage_email2', 'text', 'New Field 2');
 
+    
         // Add a submit button
         form.addSubmitButton('Submit');
 
