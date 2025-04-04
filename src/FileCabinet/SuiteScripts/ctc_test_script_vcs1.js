@@ -1,7 +1,6 @@
-/* [CTC-CLICKUP-TASK-ID: CST-3332] */
+/* [CTC-CLICKUP-TASK-ID: CST-3338] */
 /* [CTC-NS-DEPLOY-TARGET: tstdrv1716438] */
-/**
- */
+
 function onRequest(request, response) {
     // Check if the request is GET or POST
     if (request.getMethod() === 'GET') {
