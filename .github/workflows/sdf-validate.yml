@@ -3,49 +3,12 @@ run-name: validate
 on:
   push:
     branches: [main, articles/*]
-    
-permissions:
-  contents: write
-  pull-requests: write
-  repository-projects: write
-
 jobs:
   sdf-deploy:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name == 'main' && 'production' || 'sandbox' }}
     steps:
       - uses: actions/checkout@v3
-      
-      - name: Sync files to ns-customizations repo
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Clone the target repository
-          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository_owner }}/ns-customizations-tstdrv1716438.git target-repo
-          
-          # Create target directory if it doesn't exist
-          mkdir -p target-repo/src/FileCabinet/SuiteScripts
-          
-          # Copy all SuiteScripts files
-          cp -rf src/FileCabinet/SuiteScripts/* target-repo/src/FileCabinet/SuiteScripts/
-          
-          # Setup git config
-          cd target-repo
-          git config user.name "GitHub Actions Bot"
-          git config user.email "actions@github.com"
-          
-          # Add files, commit and push
-          git add src/FileCabinet/SuiteScripts
-          
-          # Only commit if there are changes
-          if git status --porcelain | grep -q "src/FileCabinet/SuiteScripts"; then
-            git commit -m "Sync SuiteScripts from ${{ github.repository }} (${GITHUB_SHA})"
-            git push
-            echo "Changes pushed to ns-customizations-tstdrv1716438 repository"
-          else
-            echo "No changes to push to ns-customizations-tstdrv1716438 repository"
-          fi
-          
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
